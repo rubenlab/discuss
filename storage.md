@@ -58,11 +58,94 @@ Data can be divided into three types:
 
 ## Proposal
 
+Data processing and migration process:
+
+EM->Falcon4 server->Pre-processing->HPC
 
 
+### Pre-processing
 
-## Rationale
+Data will be processed on the pre-processing server before moving to HPC.
+
+### Move to HPC
+
+Manually move the pre-processed folder to the "tohpc" folder.
+
+Here's the document:
+
+https://github.com/rubenlab/tohpc
+
+### Archiving on the HPC
+
+On HPC, active data needs to be backed up because there is no automatic data backup on /scratch driver. At the same time, long-term inactive data need to be automatically archived.
+
+The folder structure needs to be normalized to determine which directories need to be automatically backed up and archived.
+#### Folder structure
+
+Data should be stored under /scratch1/projects/rubsak/owner/$USER folder, which can be stored in a one-level or two-level folder structure.
+
+One-level folder structure:
+
+```
+$USER
+├── dataset
+              └── frames
+```
+
+Two-level folder structure:
+```
+$USER
+├── project
+              └── dataset
+                           └── frames
+```
+
+Two-level structure is more ideal, but considering that the one-level structure is a commonly used structure at present, we support both structures. The location of the "frames" folder determines whether it is a one-level structure or a two-level structure.
+
+#### Back up of hot data
+
+When each new dataset folder is first moved to the HPC, a tar backup on the archive drive will be created for it. We do not make backups for subsequent changes, as these changes can be restored from the original data.
+
+#### Automatic archiving of non-alive data
+
+When all files in one dataset folder have not been modified for a certain period of time (for example, 90 days), this folder will be automatically archived.
+
+<!-- ## Rationale -->
 
 ## Implementation
 
+### Move to HPC
+
+Already implimented.
+
+Here's the document:
+
+https://github.com/rubenlab/tohpc
+
+### Archiving on the HPC
+
+#### Folder structure
+
+The correct folder structure needs to be manually maintained.
+
+#### Back up of hot data
+
+The /scratch1/projects/rubsak/owner folder should be scanned by a cron task to create a backup of the newly created and fully transferred dataset folder.
+
+##### Check if it is a new dataset folder
+
+If no corresponding backup file is found, it is considered to be a new dataset folder.
+
+##### Check if it is fully transfered
+
+If there are no newly created files in the folder within 12 hours, the folder is considered to have been fully transferred.
+
+#### Automatic archiving of non-alive data
+
+The /scratch1/projects/rubsak/owner folder is scanned through a cron script, it looks for dataset folders that have not been modified for 90 days and archive them.
+
 ## Open issues
+
+### sudo permission
+
+We don't have sudo permission, so all cron scripts need HPC administrators to help us run.
