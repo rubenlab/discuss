@@ -50,6 +50,10 @@ I use an extra rsync command to ensure all files are copied.
 
 In the case where the two directory files are the same, the rsync command will complete very quick.
 
+## Recover archive files
+
+`/usr/users/rubsak/sw/archive/mpi/restore.sh ${archive_folder} ${output_folder}`
+
 ## Archive structure
 
 ```
