@@ -42,7 +42,7 @@ Different locations have different port configuration procedures, which can be c
 
 1. **GZMB wall network ports:** After determining the room number and port number, contact the GZMB network admin on the ground floor. I don't have their email at the moment. Previously, I contacted: Wegner, Alexander Peter <alexander.wegner@med.uni-goettingen.de> for port patching, but since he's been busy, it's best to go through the GZMB network admin.
 2. **Physics building corridor switches:** Simply email <support@gwdg.de> with the switch and port numbers, along with the VLAN number that needs to be matched, and they will configure it remotely.
-3. **Physics wall ports:** Note the port number, then go to room D-1.109 and connect the wall port to the designated switch port.
+3. **Physics wall ports:** Note the port number, then go to room D-1.109 and connect the wall port to the designated switch port. Mr. Michael Malchow <mmalcho@gwdg.de> can help with this.
 
 Additionally, for 10G network use in the Physics building, you need to connect to the 10G SFP interface. Ensure the correct SFP module is used based on the computer's network port. The switches are Aruba brand, so ensure the SFP module is compatible by consulting GWDG support with the switch model for exact requirements.
 
